@@ -11,6 +11,7 @@ import (
 func main() {
 	games := parse(os.Stdin)
 	fmt.Println(part1(games))
+	fmt.Println(part2(games))
 }
 
 type grab struct {
@@ -65,6 +66,26 @@ func part1(games [][][]grab) int {
 		if valid {
 			sum += i + 1
 		}
+	}
+	return sum
+}
+
+func part2(games [][][]grab) int {
+	var sum int
+	for _, game := range games {
+		var nr, ng, nb int
+		for _, set := range game {
+			for _, grab := range set {
+				if grab.color == "red" && grab.n > nr {
+					nr = grab.n
+				} else if grab.color == "green" && grab.n > ng {
+					ng = grab.n
+				} else if grab.color == "blue" && grab.n > nb {
+					nb = grab.n
+				}
+			}
+		}
+		sum += nr * ng * nb
 	}
 	return sum
 }
