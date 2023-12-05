@@ -8,7 +8,9 @@
         (system: fn nixpkgs.legacyPackages.${system});
     in {
       devShells = forAllSystems (pkgs: {
-        default = pkgs.mkShell { buildInputs = with pkgs; [ zig zls ]; };
+        default = pkgs.mkShell {
+          buildInputs = with pkgs; [ zig zls go gopls gotools ];
+        };
       });
     };
 }
